@@ -269,11 +269,16 @@ class Draw {
     return this;
   }
 
-  border(style, color) {
+  border({ style, color }) {
+    let borderColor;
+    if (color && color.argb) {
+      borderColor = `#${color.argb.slice(2)}${color.argb.slice(0, 2)}`;
+    }
     const { ctx } = this;
     ctx.lineWidth = thinLineWidth;
-    ctx.strokeStyle = color;
-    // console.log('style:', style);
+    if (borderColor) {
+      ctx.strokeStyle = borderColor;
+    }
     if (style === 'medium') {
       ctx.lineWidth = npx(2) - 0.5;
     } else if (style === 'thick') {
@@ -284,6 +289,8 @@ class Draw {
       ctx.setLineDash([npx(1), npx(1)]);
     } else if (style === 'double') {
       ctx.setLineDash([npx(2), 0]);
+    } else if (style === 'thin') {
+      ctx.lineWidth = npx(1) - 1;
     }
     return this;
   }
@@ -306,25 +313,23 @@ class Draw {
   strokeBorders(box) {
     const { ctx } = this;
     ctx.save();
-    // border
     const {
       borderTop, borderRight, borderBottom, borderLeft,
     } = box;
     if (borderTop) {
-      this.border(...borderTop);
-      // console.log('box.topxys:', box.topxys());
+      this.border(borderTop);
       this.line(...box.topxys());
     }
     if (borderRight) {
-      this.border(...borderRight);
+      this.border(borderRight);
       this.line(...box.rightxys());
     }
     if (borderBottom) {
-      this.border(...borderBottom);
+      this.border(borderBottom);
       this.line(...box.bottomxys());
     }
     if (borderLeft) {
-      this.border(...borderLeft);
+      this.border(borderLeft);
       this.line(...box.leftxys());
     }
     ctx.restore();
@@ -367,13 +372,14 @@ class Draw {
     const { ctx } = this;
     const { x, y, width } = box;
     const sx = x + width - 1;
+    const symbolSize = 10;
     ctx.save();
     ctx.beginPath();
-    ctx.moveTo(npx(sx - 8), npx(y - 1));
+    ctx.moveTo(npx(sx - symbolSize), npx(y - 1));
     ctx.lineTo(npx(sx), npx(y - 1));
-    ctx.lineTo(npx(sx), npx(y + 8));
+    ctx.lineTo(npx(sx), npx(y + symbolSize));
     ctx.closePath();
-    ctx.fillStyle = 'rgba(0, 255, 0, .85)';
+    ctx.fillStyle = 'rgba(0, 255, 0, .62)';
     ctx.fill();
     ctx.restore();
   }

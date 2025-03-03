@@ -71,5 +71,8 @@
   "collective": {
     "type": "opencollective",
     "url": "https://opencollective.com/x-spreadsheet"
+  },
+  "volta": {
+    "node": "14.21.3"
   }
 }

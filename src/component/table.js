@@ -101,7 +101,7 @@ export function renderCell(draw, data, rindex, cindex, yoffset = 0) {
       // console.log('error:', rindex, cindex, error);
       draw.error(dbox);
     }
-    if (frozen) {
+    if (!frozen) {
       draw.frozen(dbox);
     }
   });
