@@ -1,6 +1,6 @@
 # x-spreadsheet
 
-Fork 自 [x-soreadsheet](https://github.com/myliang/x-spreadsheet), 自定义了一些更改
+Fork 自 [x-spreadsheet](https://github.com/myliang/x-spreadsheet), 自定义了一些更改
 
 - [ ] 修复了原本不支持argb格式颜色的问题
 - [ ] 修复了绘制表格边框时意外加粗边框的BUG
